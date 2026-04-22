@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Marketing Agency in Cairo & Giza | NexGrow</title>
+    <meta name="description" content="NexGrow - Leading Social Media Marketing Agency in Cairo & Giza. Digital Marketing Egypt, Social Media Management Cairo, Facebook Ads Specialist Egypt.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A0A;
+            color: #FFFFFF;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Grain Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Radial Glows */
+        .glow {
+            position: fixed;
+            background: radial-gradient(circle at 20% 80%, rgba(0, 255, 127, 0.1) 0%, transparent 50%);
+            width: 400px;
+            height: 400px;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+            top: 10%;
+            left: 10%;
+        }
+
+        .glow:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Grid Lines */
+        .section-divider {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0 10vw;
+        }
+
+        /* Typography */
+        .hero-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 0.9;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #FFFFFF 0%, #00FF7F 50%, #00D66B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+        }
+
+        .hero-subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            font-weight: 600;
+            opacity: 0.9;
+            max-width: 800px;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 4vw, 2.5rem);
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 800px;
+            line-height: 1.4;
+            margin-bottom: 4rem;
+        }
+
+        .trust-badge {
+            background: rgba(0, 255, 127, 0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 127, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 127, 0.1); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 127, 0.3); }
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 10vw 10vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            margin-top: 6rem;
+        }
+
+        .service-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+
+        .service-card:hover {
+            border-color: #00FF7F;
+            box-shadow: 0 0 50px rgba(0, 255, 127, 0.2);
+        }
+
+        .service-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #00FF7F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .team-member {
+            text-align: center;
+            opacity: 0;
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 400px;
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) contrast(1.2);
+            transition: all 0.4s ease;
+        }
+
+        .team-photo:hover {
+            filter: grayscale(0%) contrast(1.1);
+            border-color: #00FF7F;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            background: linear-gradient(135deg, #00FF7F 0%, #00D66B 100%);
+            color: #0A0A0A;
+            border: none;
+            padding: 2rem 4rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 255, 127, 0.4);
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 255, 127, 0.6);
+        }
+
+        /* WhatsApp FAB */
+        .whatsapp-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .whatsapp-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-icon {
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 8vw 5vw;
+            }
+            
+            .hero-title {
+                text-align: center;
+            }
+            
+            .subtitle {
+                text-align: center;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* SEO Content */
+        .seo-section {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .seo-section h2 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #00FF7F 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .seo-keywords {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Glows -->
+    <div class="glow"></div>
+    <div class="glow"></div>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">NEXGROW</h1>
+            <h2 class="hero-subtitle">Data-Driven Digital Growth for Egyptian Startups.</h2>
+            <p class="subtitle">Dominating the Digital Landscape of Cairo & Giza.</p>
+            <div class="trust-badge">100% Growth Focused</div>
+        </div>
+        <div class="section-divider"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2 style="font-family: 'Archivo Black', sans-serif; font-size: 4rem; text-align: center; margin-bottom: 4rem; background: linear-gradient(135deg, #FFFFFF 0%, #00FF7F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            OUR SERVICES
+        </h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3 class="service-title">Web Design & Social Strategy</h3>
+                <p>Custom websites that convert. Social media strategies that scale. Built for Egyptian businesses.</p>
+            </div>
+            <div class="service-card">
+                <h3 class="service-title">Facebook Ads Specialist</h3>
+                <p>ROI-focused advertising campaigns optimized for Cairo & Giza audiences. Maximum growth, minimum waste.</p>
+            </div>
+            <div class="service-card">
+                <h3 class="service-title">Digital Marketing Egypt</h3>
+                <p>Complete digital transformation for startups and established brands across Egypt.</p>
+            </div>
+        </div>
+        <div class="section-divider"></div>
+    </section>
+
+    <!-- SEO Section -->
+    <section id="seo">
+        <div class="seo-section">
+            <h2>Why NexGrow is the Leading Agency in Egypt</h2>
+            <div class="seo-keywords">
+                <p><strong>Social Media Marketing Cairo</strong> - Expert management for maximum engagement.</p>
+                <p><strong>Digital Strategy Giza</strong> - Tailored growth plans for local businesses.</p>
+                <p><strong>ROI-focused Advertising</strong> - Every campaign delivers measurable results.</p>
+                <p>NexGrow: <strong>Social Media Management Cairo</strong>, <strong>NexGrow Giza</strong>, <strong>Digital Marketing Egypt</strong>.</p>
+            </div>
+        </div>
+        <div class="section-divider"></div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team">
+        <h2 style="font-family: 'Archivo Black', sans-serif; font-size: 4rem; text-align: center; margin-bottom: 4rem; background: linear-gradient(135deg, #FFFFFF 0%, #00FF7F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            THE TEAM
+        </h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-photo" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <h3>Ahmed El-Sayed</h3>
+                <p>Founder & Growth Strategist</p>
+            </div>
+            <div class="team-member">
+                <div class="team-photo" style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <h3>Mariam Hassan</h3>
+                <p>Creative Director</p>
+            </div>
+            <div class="team-member">
+                <div class="team-photo" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                <h3>Omar Khaled</h3>
+                <p>Ads Performance Lead</p>
+            </div>
+        </div>
+        <div class="section-divider"></div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" style="text-align: center; padding: 15vh 10vw;">
+        <h2 style="font-family: 'Archivo Black', sans-serif; font-size: 5rem; margin-bottom: 3rem; opacity: 0.9;">READY TO DOMINATE?</h2>
+        <a href="https://wa.me/201142070183?text=I'm%20interested%20in%20growing%20my%20brand%20with%20NexGrow%20🚀" class="cta-button" target="_blank">
+            LET'S GROW
+        </a>
+    </section>
+
+    <!-- WhatsApp FAB -->
+    <a href="https://wa.me/201142070183?text=Hi%20NexGrow!%20I'm%20ready%20to%20grow%20my%20business%20in%20Cairo%20🚀" class="whatsapp-fab" target="_blank">
+        <svg class="whatsapp-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+        </svg>
+    </a>
+
+    <script>
+        // GSAP Registration
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Animation
+        gsap.from(".hero-title", {
+            y: 100,
+            opacity: 0,
+            duration: 1.5,
+            ease: "power3.out"
+        });
+
+        gsap.from(".hero-subtitle", {
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            delay: 0.3,
+            ease: "power2.out"
+        });
+
+        gsap.from(".subtitle", {
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            delay: 0.5,
+            ease: "power2.out"
+        });
+
+        gsap.from(".trust-badge", {
+            scale: 0.8,
+            opacity: 0,
+            duration: 1,
+            delay: 1,
+            ease: "back.out(1.7)"
+        });
+
+        // Services Animation
+        gsap.utils.toArray(".service-card").forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: "power2.out"
+            });
+        });
+
+        // Team Animation
+        gsap.utils.toArray(".team-member").forEach((member, i) => {
+            gsap.from(member, {
+                scrollTrigger: {
+                    trigger: member,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                scale: 0.9,
+                opacity: 0,
+                rotation: -5,
+                duration: 0.8,
+                delay: i * 0.15,
+                ease: "back.out(1.7)"
+            });
+        });
+
+        // CTA Animation
+        gsap.from(".cta-button", {
+            scrollTrigger: {
+                trigger: "#cta",
+                start: "top 80%",
+                toggleActions: "play none none reverse"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power2.out"
+        });
+
+        // Continuous floating animation for hero elements
+        gsap.to(".hero-content", {
+            yoyo: true,
+            repeat: -1,
+            y: -10,
+            duration: 3,
+            ease: "power2.inOut"
+        });
+
+        // Parallax effect on team photos
+        gsap.utils.toArray(".team-photo").forEach(photo => {
+            gsap.to(photo, {
+                scrollTrigger: {
+                    trigger: photo,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                },
+                yPercent: -50,
+                ease: "none"
+            });
+        });
+
+        // Button hover effects
+        document.querySelectorAll(".cta-button, .whatsapp-fab").forEach(btn => {
+            btn.addEventListener("mouseenter", () => {
+                gsap.to(btn, {
+                    scale: 1.05,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            
+            btn.addEventListener("mouseleave", () => {
+                gsap.to(btn, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // SEO section animation
+        gsap.from(".seo-section h2", {
+            scrollTrigger: {
+                trigger: "#seo",
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.7)"
+        });
+
+        gsap.from(".seo-keywords p", {
+            scrollTrigger: {
+                trigger: "#seo",
+                start: "top 85%",
+                toggleActions: "play none none reverse"
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out"
+        });
+    </script>
+</body>
+</html>
+ 
